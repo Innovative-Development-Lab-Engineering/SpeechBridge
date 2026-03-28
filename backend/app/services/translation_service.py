@@ -60,8 +60,13 @@ class TranslationService:
         source_base = source_lang.split("-")[0].lower()
         target_base = target_lang.split("-")[0].lower()
 
+<<<<<<< HEAD
         # Skip if already in target language
         if source_base == target_base:
+=======
+        # Skip if source and target are the same language
+        if source_base == target_lang.lower():
+>>>>>>> abc7bf02ec75f2255b2116d129630446cac728d6
             logger.debug(f"Skipping translation — source ({source_lang}) == target ({target_lang})")
             return text
 
