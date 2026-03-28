@@ -81,6 +81,7 @@ export function useWebSocket() {
           translated: msg.translated,
           sourceLanguage: msg.source_language,
           targetLanguage: msg.target_language,
+          isFinal: msg.is_final,
         });
         break;
 

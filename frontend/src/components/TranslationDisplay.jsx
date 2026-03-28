@@ -20,13 +20,18 @@ export default function TranslationDisplay({ translation, history = [] }) {
       </div>
       <div className="panel-body" aria-live="polite" aria-label="English translation">
         <div className="conversation-flow">
-          <p className="translation-text text--final">
-            {history.map(t => t.translated).join(" ")}
-            
-            {translated && !history.some(h => h.original === original) && (
-              <span className="text--interim"> {translated}</span>
-            )}
-          </p>
+          {history.map((t, index) => (
+            <p key={`hist-${index}`} className="translation-text text--final">
+              {t.translated}
+            </p>
+          ))}
+
+          {translated && !history.some(h => h.original === original) && (
+            <p className="translation-text text--interim">
+              {translated}
+              <span className="cursor-blink">|</span>
+            </p>
+          )}
 
           {!translated && history.length === 0 && (
             <p className="panel-placeholder">English translation will appear here...</p>
