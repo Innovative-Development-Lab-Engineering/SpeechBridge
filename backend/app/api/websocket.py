@@ -16,8 +16,10 @@ import asyncio
 import json
 import os
 import re
+import time
 
 from fastapi import APIRouter, WebSocket, WebSocketDisconnect
+from google.genai import Client, types
 
 from app.config.settings import get_settings
 from app.models.schemas import (
@@ -60,6 +62,9 @@ async def translate_endpoint(websocket: WebSocket):
     config: AudioConfig = None
     enable_tts = False  # can be enabled via config in future iterations
     transcript_history_buffer = []  # Store last 10 final transcripts for context
+    
+    # State for throttling interim translations to avoid rate limits
+    throttler = {"text": "", "time": 0}
 
     # Send connected status
     await websocket.send_text(
@@ -92,9 +97,31 @@ async def translate_endpoint(websocket: WebSocket):
                 # Use high-fidelity Agent for final translations to support the "uncertainty fallback" rule
                 if is_final:
                     try:
+                        
                         prompt = f"Translate from {language} to {target_lang}. Previous context: {context_str}. Text: {text}"
-                        agent_response = await translation_agent.run(prompt)
-                        translated = agent_response.text
+                        
+                        # Fix AttributeError: use GenAI client directly for discrete translation tasks
+                        client = Client(
+                            api_key=settings.google_api_key,
+                            vertexai=settings.google_genai_use_vertexai,
+                            project=settings.gcp_project_id,
+                            location="us-central1"
+                        )
+                        
+                        response = await client.models.generate_content(
+                            model=translation_agent.model,
+                            contents=prompt,
+                            config=types.GenerateContentConfig(
+                                system_instruction=translation_agent.instruction,
+                                temperature=0.3
+                            )
+                        )
+                        translated = response.text
+                        
+                        # Clear interim state on final
+                        throttler["text"] = ""
+                        throttler["time"] = 0
+                        
                     except Exception as e:
                         logger.error(f"Agent translation failed: {e}. Falling back to standard service.")
                         translated = await asyncio.get_event_loop().run_in_executor(
@@ -107,6 +134,19 @@ async def translate_endpoint(websocket: WebSocket):
                             ),
                         )
                 else:
+                    now = time.time()
+                    
+                    # THROTTE INTERIM: Only translate if significant more text OR > 1.2s passed
+                    # This dramatically reduces API calls and avoids rate limits
+                    significant_change = len(text) - len(throttler["text"]) > 15
+                    enough_time = now - throttler["time"] > 1.2
+                    
+                    if not (significant_change or enough_time):
+                        return # Skip this interim translate cycle
+                    
+                    throttler["text"] = text
+                    throttler["time"] = now
+                    
                     # Fast service for on-the-go interim updates
                     translated = await asyncio.get_event_loop().run_in_executor(
                         None,

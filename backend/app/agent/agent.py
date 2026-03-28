@@ -25,7 +25,7 @@ settings = get_settings()
 
 translation_agent = Agent(
     name="speech_translation_agent",
-    model="gemini-2.0-pro-exp-02-05",
+    model="gemini-1.5-flash",
     description=(
         "A real-time multilingual speech transcription and translation agent. "
         "Supports Hindi, Spanish, Gujarati, and English. Translates all input pairs."

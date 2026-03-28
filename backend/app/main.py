@@ -6,19 +6,20 @@ Mounts WebSocket router, configures CORS, and provides health + info endpoints.
 import os
 from contextlib import asynccontextmanager
 
+from app.config.settings import get_settings
+settings = get_settings()
+
+# Set Google credentials env var BEFORE other imports
+if not os.environ.get("GOOGLE_APPLICATION_CREDENTIALS"):
+    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = settings.google_application_credentials
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.api.websocket import router as ws_router
-from app.config.settings import get_settings
 from app.utils.logger import get_logger
 
 logger = get_logger(__name__)
-settings = get_settings()
-
-# Set Google credentials env var if not already set
-if not os.environ.get("GOOGLE_APPLICATION_CREDENTIALS"):
-    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = settings.google_application_credentials
 
 
 @asynccontextmanager
