@@ -122,7 +122,7 @@ async def translate_endpoint(websocket: WebSocket):
                         }
                         src_name = LANG_NAMES.get(source_base, language)
                         tgt_name = LANG_NAMES.get(target_lang.lower(), target_lang)
-                        prompt = f"Translate the following text from {src_name} to {tgt_name}. Output only the translated text, nothing else. Previous context: {context_str}. Text to translate: {text}"
+                        prompt = f"CRITICAL: YOUR ONLY TASK IS TO TRANSLATE. INPUT: Language/{src_name}, Text/'{text}'. OUTPUT: Language/{tgt_name}. Output ONLY the translated text. Do NOT add notes or pre-amble. Context from previous turn: {context_str}"
                         
                         # Fix AttributeError: use GenAI client directly for discrete translation tasks
                         client = Client(

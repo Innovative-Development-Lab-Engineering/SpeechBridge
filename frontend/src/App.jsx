@@ -65,7 +65,25 @@ export default function App() {
       const ws = getWebSocket();
       if (ws) await startRecording(ws);
     }
-  }, [isRecording, language, connect, disconnect, startRecording, stopRecording, getWebSocket]);
+  }, [isRecording, language, targetLanguage, connect, disconnect, startRecording, stopRecording, getWebSocket]);
+
+  const handleSwap = useCallback(() => {
+    if (isRecording) return;
+    
+    // Find matching language objects to perform safe swap
+    const currentInput = LANGUAGES.find(l => l.code === language);
+    const currentOutput = LANGUAGES.find(l => l.lang === targetLanguage);
+    
+    if (currentInput && currentOutput) {
+      const nextInput = LANGUAGES.find(l => l.lang === targetLanguage);
+      const nextOutput = LANGUAGES.find(l => l.code === language);
+      
+      if (nextInput && nextOutput) {
+        setLanguage(nextInput.code);
+        setTargetLanguage(nextOutput.lang);
+      }
+    }
+  }, [language, targetLanguage, isRecording]);
 
   const displayError = wsError || audioError;
 
@@ -87,19 +105,26 @@ export default function App() {
         <section className="controls-section" aria-label="Recording controls">
           <div className="language-pair-controls">
             <div className="control-group">
-              <label>Input Language</label>
               <LanguageSelector
                 value={language}
                 onChange={setLanguage}
                 disabled={isRecording}
               />
             </div>
-            <div className="control-arrow">
+            <button 
+              className="swap-button" 
+              onClick={handleSwap}
+              disabled={isRecording}
+              title="Swap languages"
+              aria-label="Swap source and target languages"
+            >
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <line x1="5" y1="12" x2="19" y2="12"></line>
-                <polyline points="12 5 19 12 12 19"></polyline>
+                <path d="M17 1l4 4-4 4"></path>
+                <path d="M3 10V6c0-1.1.9-2 2-2h16"></path>
+                <path d="M7 23l-4-4 4-4"></path>
+                <path d="M21 14v4c0 1.1-.9 2-2 2H3"></path>
               </svg>
-            </div>
+            </button>
             <div className="control-group">
               <label>Output Language</label>
               <select 

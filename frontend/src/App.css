@@ -407,13 +407,39 @@ body {
   white-space: nowrap;
 }
 
-.control-arrow {
+.swap-button {
   display: flex;
   justify-content: center;
   align-items: center;
   margin-top: 32px; /* aligns with selectors */
-  color: var(--primary);
-  opacity: 0.7;
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  color: var(--accent-primary);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all var(--transition);
+  padding: 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  z-index: 2;
+}
+
+.swap-button:hover:not(:disabled) {
+  background: var(--bg-panel-hover);
+  border-color: var(--accent-primary);
+  transform: rotate(180deg) scale(1.1);
+  box-shadow: 0 0 15px rgba(79, 142, 247, 0.25);
+}
+
+.swap-button:active:not(:disabled) {
+  transform: rotate(180deg) scale(0.95);
+}
+
+.swap-button:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  filter: grayscale(1);
 }
 
 .target-language-select,
