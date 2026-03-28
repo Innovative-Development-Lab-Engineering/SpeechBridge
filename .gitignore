@@ -1,5 +1,4 @@
 # Google Cloud credentials — NEVER commit these
-stt.json
 *.json
 .env
 .env.*
@@ -25,3 +24,7 @@ frontend/.vite/
 
 # Docker
 *.log
+
+.claude/
+
+stt.json
