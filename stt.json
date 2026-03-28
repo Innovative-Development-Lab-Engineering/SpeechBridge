@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "nyuhackathon",
+  "private_key_id": "8baa1789da5b14913313f1a80a0adb08eb8dc69c",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQDDqn5e2bB3bqAj\no4eUBHKe/7IhIqQh7rEHDKK6uOGXcEBTJn6c5LHADF1P57hL9JJ4FrLdlma6cGKQ\nLtXoLFULIjXRW4jkzHC2aICw8P0DSOMy8XkodOqH5/w9WbPwrSI7H9JhjDOl5zRA\nzzIn9/Fg/n44tPtw3JB/n1kdkHucagU0hGOUB2p7g3AySnvnWugHqUpRRgmgDDa1\n/9We7HfPguSyHnuOA49F4IEuLXOFE6fFzEHJsXeHbZIcYMQMklP9026B19uCH0vd\nTAXHMO7rJjtdogdEzC5CBHk4RKT97jD51Uf3QuladQS7rh30431+/WKKMhTNU7Ti\ntJPfYdYlAgMBAAECggEADO666t1WkD5L8ARsqfg1Sem6m1K6fdJUpGj4ZIENysBM\n8ByuPQPR9SXxZkj5jG5TiVkZZL3+d4+FZDmZl9Po9xMWyDSq8qcfQrSGNQETUraW\n6xS8yP4ZS6GmBrlkGaHyjkKHLugLuIkfPLK1LPZytNIoA5WAEltHDbhkNSkJ59zt\nx2arH0jfYAvu9sO8JK7Fx0jGlHWWPDGkHp4CdByAyAby2VHXN46syAWpfcWHX84a\nQj9RNLGpShG5g07TbXu7lza7FLW7pUje7pDiXoWsSjOiooO9DHJBw0d1lgOzMmtA\n4XZuupDP2GPJiqNbxX3ZsbjAOIen4YpJcayv5zcp7QKBgQDqMTB1A1+A73p0cK96\no7u+cStMGFmEWyBZcAfzrCzlClDSJzC+dlqVhfhmxUOFYjwae9Lb3NhBpMxKjCz5\nuMmM5Vt4M4cI5S5xQGw1SMKMtSs4kdI4FqaC1NdZTIsDwc2bzlDl8HvuKTYoueWM\ntO6v9hbwjJQIpC2yqClj92m3owKBgQDV4uUl8bexOtVok5q3AqMEHYWV5cfRbBeP\nU0ccgkO5+ytmyIJXsXuva5CgAi1+ARt5LKV9P8r37OSPRNmUm2xcdpho/ges/Dfm\nDWQkc1FlghXpMncqenJKMhBArGSNoF+BkNCrVHEQwHc5jmg6/i5V0vweWRxl4dMw\n+pIHO0u3lwKBgQCyq/ScUYZ7iDmUvKQknOaP1SeDVtB0+lEj6yUl8yYNWGFw9BVs\nOj/B9AQf5EAvc1MHoZCtzT/wVRrHhUqK+0BKDnJKsoVDdBaKsOvdezVyxIXFEvuf\nbyh6iIgDyTIGG8YSKMXvqBnlCewYBjvrrd6swMOfoqEONrPmqgVqD0jIoQKBgQC7\nsv+XefXTYacwvAAVRQocLXAy6NCfVzWhwNpyCVs4FlSzQZkpLgc2HbZwxRh5MK2U\nfHrKXLZZNpoppKkxAehpiGYeFXhU9Y50pCHS3yR6aVujJ3duXsB3nlGm/+LKawgF\nYznMcTE8GztF1lRgGPo+tQYt99O1ESXOIMcP85hyBwKBgQDI6hlp/0bBcSZ8vEHq\nBpte8pKrt0x6rcjb5rpqbul4v5HVrMyLsumMcvoC4PlqCrZJEcRdX2uVzgA8GMLO\nVV0y8uW4zsuAesS29YLPs0u0pgZadYV/9yuiPXr3naZmMiH/Qk3ixC8Ik4E0QUs+\nNj2RtyjdfnEn5UBto0380WA8Aw==\n-----END PRIVATE KEY-----\n",
+  "client_email": "nyuhackathon@nyuhackathon.iam.gserviceaccount.com",
+  "client_id": "103708009295436396249",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/nyuhackathon%40nyuhackathon.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
