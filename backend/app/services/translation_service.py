@@ -59,8 +59,8 @@ class TranslationService:
         # Normalize source language to base code (hi-IN → hi)
         source_base = source_lang.split("-")[0].lower()
 
-        # Skip if already in target language
-        if source_base == target_lang.lower() or source_lang in ENGLISH_CODES:
+        # Skip if source and target are the same language
+        if source_base == target_lang.lower():
             logger.debug(f"Skipping translation — source ({source_lang}) == target ({target_lang})")
             return text
 
