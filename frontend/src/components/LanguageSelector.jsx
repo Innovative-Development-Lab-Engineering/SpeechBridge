@@ -32,7 +32,7 @@ export default function LanguageSelector({ value, onChange, disabled }) {
         </select>
         <span className="select-arrow">▾</span>
       </div>
-      <p className="language-hint">Always translates → English</p>
+      <p className="language-hint">Select the language you will speak</p>
     </div>
   );
 }

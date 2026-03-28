@@ -94,11 +94,35 @@ async def translate_endpoint(websocket: WebSocket):
                 
                 context_str = " ".join(context_words[-15:]) # Keep last 15 words
                 
+                # Skip translation when detected source language matches target language
+                source_base = language.split("-")[0].lower()
+                if source_base == target_lang.lower():
+                    translated = text
+                    if translated:
+                        translation_event = TranslationEvent(
+                            original=text,
+                            translated=translated,
+                            source_language=language,
+                            target_language=target_lang,
+                            is_final=is_final,
+                        )
+                        await websocket.send_text(translation_event.model_dump_json())
+                        if is_final:
+                            transcript_history_buffer.append(text)
+                            if len(transcript_history_buffer) > 10:
+                                transcript_history_buffer.pop(0)
+                    return
+
                 # Use high-fidelity Agent for final translations to support the "uncertainty fallback" rule
                 if is_final:
                     try:
-                        
-                        prompt = f"Translate from {language} to {target_lang}. Previous context: {context_str}. Text: {text}"
+                        LANG_NAMES = {
+                            "en": "English", "hi": "Hindi",
+                            "es": "Spanish", "gu": "Gujarati",
+                        }
+                        src_name = LANG_NAMES.get(source_base, language)
+                        tgt_name = LANG_NAMES.get(target_lang.lower(), target_lang)
+                        prompt = f"Translate the following text from {src_name} to {tgt_name}. Output only the translated text, nothing else. Previous context: {context_str}. Text to translate: {text}"
                         
                         # Fix AttributeError: use GenAI client directly for discrete translation tasks
                         client = Client(

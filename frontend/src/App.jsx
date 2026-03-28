@@ -37,6 +37,16 @@ export default function App() {
   useEffect(() => {
     if (translation.isFinal && translation.translated.trim()) {
       setTranslationHistory((prev) => [...prev, translation]);
+
+      // Speak the translated text aloud using the browser's TTS
+      if ("speechSynthesis" in window) {
+        const utterance = new SpeechSynthesisUtterance(translation.translated);
+        utterance.lang = translation.targetLanguage || targetLanguage;
+        utterance.rate = 1.0;
+        utterance.pitch = 1.0;
+        window.speechSynthesis.cancel(); // cancel any queued speech first
+        window.speechSynthesis.speak(utterance);
+      }
     }
   }, [translation.isFinal, translation.translated]);
 
